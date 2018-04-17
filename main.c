@@ -9,12 +9,12 @@ int main() {
     float temp;
     int gpio_pin = 7;
     while(1) {
-        read_dht_data(gpio_pin, &humidity, &temp);
-        if (humidity < 0)
-            printf("BAD READING\n");
-        else
+        
+        if (read_dht_data(gpio_pin, &humidity, &temp))
             printf("Humidiy: %f%, Temperature: %fc\n", humidity, temp);
-        delay(2000);
+        else
+            printf("BAD READING\n");
+        delay(500);
     }
     return 0;
 }

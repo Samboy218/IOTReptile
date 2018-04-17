@@ -47,10 +47,11 @@ void read_dht_data(int gpio_pin, float* humidity, float* temp) {
             (data[4] == ((data[0]+data[1]+data[2]+data[3]) & 0xFF))) {
         *humidity = (float)((data[0] << 8) + data[1]) / 10;
         *temp = (float)(((data[2] & 0x7F)  << 8) + data[3]) / 10;
+        return true;
     }
     else {
-        *humidity = -1000;
-        *temp = -1000;
+        *humidity = 0;
+        *temp = 0;
+        return false;
     }
-    return;
 }
