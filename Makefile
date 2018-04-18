@@ -7,5 +7,8 @@ dhtRead: dht22.c dht22.h main.c
 dhtDaemon: dhtDaemon.c dht22.c dht22.h
 	gcc -o dhtDaemon dhtDaemon.c dht22.c -lwiringPi
 
+.PHONY: install
 install: dhtDaemon
 	sudo cp dhtDaemon /usr/sbin/dhtDaemon
+	sudo cp init/dhtDaemon /etc/init.d/dhtDaemon
+	sudo insserv dhtDaemon
