@@ -20,7 +20,7 @@ int main() {
     if (sid < 0) {
         exit(EXIT_FAILURE);
     }
-    if (chdir("/") < 0) {
+    if (chdir("/var/log/dhtDaemon/") < 0) {
         exit(EXIT_FAILURE);
     }
     close(STDIN_FILENO);
@@ -47,7 +47,7 @@ int main() {
         curr_time = (long int)time(NULL);
         for (i = 0; i < num_sense; i++) {
             if (read_dht_data(gpio_pin[i], &humidity[i], &temperature[i]))
-                fprintf(log, "%d, %d, %f, %f\n", 
+                fprintf(log, "%d, %d, %3.3f, %3.3f\n", 
                               curr_time, i, humidity[i], temperature[i]);
         }
         fflush(log);
