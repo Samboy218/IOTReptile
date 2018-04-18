@@ -59,7 +59,7 @@ int main() {
                               curr_time, i, humidity[i], temperature[i]);
         }
         fflush(log);
-        sleep(2);
+        sleep(60);
     }
     fclose(log);
     exit(EXIT_SUCCESS);
