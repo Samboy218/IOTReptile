@@ -22,14 +22,18 @@ test -x ${DAEMON} || { echo "${DAEMON} not installed";
 
 case ${1} in
     start)
+        echo "starting dhtDaemon..."
         ${DAEMON}
     ;;
     stop)
+        echo "killing dhtDaemon at pid `cat ${PID_FILE}`..."
         kill `cat ${PID_FILE}`
         rm -f /var/run/dhtDaemon.pid
     ;;
     restart)
+        echo "killing dhtDaemon at pid `cat ${PID_FILE}`..."
         kill `cat ${PID_FILE}`
+        echo "starting dhtDaemon..."
         ${DAEMON}
     ;;
     reload)
