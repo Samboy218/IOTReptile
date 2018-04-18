@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-//#include "dht22.h"
+#include "dht22.h"
 
 int main() {
     pid_t pid, sid;
@@ -15,8 +15,6 @@ int main() {
     }
     umask(0);
 
-    //we should open a log here//
-    FILE* log = fopen("/var/log/dhtLog.log", "a");
 
     sid = setsid();
     if (sid < 0) {
@@ -29,8 +27,32 @@ int main() {
     close(STDOUT_FILENO);
     close(STDERR_FILENO);
 
-    while(1) {
-        //main loop//
+    if (wiringPiSetup() == -1) {
+        exit(EXIT_FAILURE);
     }
+
+    //we should open a log here//
+    FILE* log = fopen("dhtLog.log", "a");
+    //int log = open("dhtLog.log", O_APPEND);
+
+    //placeholder values, need to properly set this up
+    long int time;
+    int num_sense = 1;
+    int gpio_pin[1];
+    gpio_pin[0] = 7;
+    float humidity[1];
+    float temperature[1];
+    int i;
+    while(1) {
+        time = static_cast<long int> time(NULL);
+        for (i = 0; i < num_sense; i++) {
+            if (read_dht_data(gpio_pin[i], &humidity[i], &temperature[i]))
+                fprintf(log, "%d, %d, %f, %f\n", 
+                              time, i, humidity[i], temperature[i]);
+        }
+        fflush(log);
+        sleep(2);
+    }
+    fclose(log);
     exit(EXIT_SUCCESS);
 }
