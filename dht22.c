@@ -1,7 +1,7 @@
 #include "dht22.h"
 #define MAX_TIMINGS 85
 
-void read_dht_data(int gpio_pin, float* humidity, float* temp) {
+bool read_dht_data(int gpio_pin, float* humidity, float* temp) {
     uint8_t laststate = HIGH;
     uint8_t counter = 0;
     uint8_t curr_bit = 0;

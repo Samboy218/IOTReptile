@@ -36,7 +36,7 @@ int main() {
     //int log = open("dhtLog.log", O_APPEND);
 
     //placeholder values, need to properly set this up
-    long int time;
+    long int curr_time;
     int num_sense = 1;
     int gpio_pin[1];
     gpio_pin[0] = 7;
@@ -44,11 +44,11 @@ int main() {
     float temperature[1];
     int i;
     while(1) {
-        time = static_cast<long int> time(NULL);
+        curr_time = (long int)time(NULL);
         for (i = 0; i < num_sense; i++) {
             if (read_dht_data(gpio_pin[i], &humidity[i], &temperature[i]))
                 fprintf(log, "%d, %d, %f, %f\n", 
-                              time, i, humidity[i], temperature[i]);
+                              curr_time, i, humidity[i], temperature[i]);
         }
         fflush(log);
         sleep(2);
