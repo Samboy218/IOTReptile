@@ -39,6 +39,8 @@ case ${1} in
         if [ -r ${PID_FILE} ];
         then
             echo "dhtDaemon running at pid: `cat ${PID_FILE}`";
+        else
+            echo "dhtDaemon not running";
         fi
     ;;
     *)

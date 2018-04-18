@@ -11,6 +11,9 @@ int main() {
         exit(EXIT_FAILURE);
     }
     if (pid > 0) {
+        FILE* pid_f = fopen("/var/run/dhtDaemon.pid", "w");
+        fprintf(pid_f, "%d", (int)pid);
+        fclose(pid_f);
         exit(EXIT_SUCCESS);
     }
     umask(0);
