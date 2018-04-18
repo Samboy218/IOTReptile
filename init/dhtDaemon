@@ -1,0 +1,17 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          dhtDaemon
+# Required-Start:    $all
+# Required-Stop:     $all
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: dht22 daemon
+# Description:       This daemon reads from gpio sensors (specifically
+#                    the dht22), and logs the received data.
+### END INIT INFO
+
+# Author: Samuel Wehunt (sam.wehunt@gmail.com)
+
+DESC="Description of the service"
+DAEMON=/usr/sbin/dhtDaemon
