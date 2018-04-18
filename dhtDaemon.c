@@ -6,6 +6,11 @@
 int main() {
     pid_t pid, sid;
 
+    if (geteuid()) {
+        //must be root to write to necessary files
+        //in the future we should find a way to run the daemon as non-root
+        exit(EXIT_FAILURE);
+    }
     pid = fork();
     if (pid < 0) {
         exit(EXIT_FAILURE);
