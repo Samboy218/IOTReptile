@@ -13,3 +13,5 @@ paths touched:
         /var/log/dhtDaemon/dhtDaemon.log
     start up script:
         /etc/init.d/dhtDaemon
+    pid location:
+        /var/run/dhtDaemon.pid

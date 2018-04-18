@@ -13,5 +13,36 @@
 
 # Author: Samuel Wehunt (sam.wehunt@gmail.com)
 
-DESC="Description of the service"
+DESC="Daemon for monitoring dht22 sensors connected to the gpio pins"
 DAEMON=/usr/sbin/dhtDaemon
+PID_FILE=/var/run/dhtDaemon.pid
+test -x ${DAEMON} || { echo "${DAEMON} not installed";
+                       if [ "${1}" = "stop" ]; then exit 0;
+                       else exit 5; fi; }
+
+case ${1} in
+    start)
+        ${DAEMON}
+    ;;
+    stop)
+        kill `cat ${PID_FILE}`
+        rm -f /var/run/dhtDaemon.pid
+    ;;
+    restart)
+        kill `cat ${PID_FILE}`
+        ${DAEMON}
+    ;;
+    reload)
+        echo "Option doesn't do anything sorry"
+    ;;
+    status)
+        if [ -r ${PID_FILE} ];
+        then
+            echo "dhtDaemon running at pid: `cat ${PID_FILE}`";
+        fi
+    ;;
+    *)
+        echo "Usage: ${0} {start|stop|restart|reload|status}"
+        exit 1
+    ;;
+esac
