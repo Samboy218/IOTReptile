@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ### BEGIN INIT INFO
-# Provides:          dhtDaemon
+# Provides:          dhtd
 # Required-Start:    $all
 # Required-Stop:     $all
 # Default-Start:     2 3 4 5
@@ -14,24 +14,24 @@
 # Author: Samuel Wehunt (sam.wehunt@gmail.com)
 
 DESC="Daemon for monitoring dht22 sensors connected to the gpio pins"
-DAEMON=/usr/sbin/dhtDaemon
-PID_FILE=/var/run/dhtDaemon.pid
+DAEMON=/usr/sbin/dhtd
+PID_FILE=/var/run/dhtd.pid
 test -x ${DAEMON} || { echo "${DAEMON} not installed";
                        if [ "${1}" = "stop" ]; then exit 0;
                        else exit 5; fi; }
 
 case ${1} in
     start)
-        echo "starting dhtDaemon..."
+        echo "starting dhtd..."
         ${DAEMON}
     ;;
     stop)
-        echo "killing dhtDaemon at pid `cat ${PID_FILE}`..."
+        echo "killing dhtd at pid `cat ${PID_FILE}`..."
         kill `cat ${PID_FILE}`
         rm -f /var/run/dhtDaemon.pid
     ;;
     restart)
-        echo "killing dhtDaemon at pid `cat ${PID_FILE}`..."
+        echo "killing dhtd at pid `cat ${PID_FILE}`..."
         kill `cat ${PID_FILE}`
         echo "starting dhtDaemon..."
         ${DAEMON}
@@ -42,9 +42,9 @@ case ${1} in
     status)
         if [ -r ${PID_FILE} ];
         then
-            echo "dhtDaemon running at pid: `cat ${PID_FILE}`";
+            echo "dhtd running at pid: `cat ${PID_FILE}`";
         else
-            echo "dhtDaemon not running";
+            echo "dhtd not running";
         fi
     ;;
     *)

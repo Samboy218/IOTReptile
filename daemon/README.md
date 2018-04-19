@@ -1,11 +1,18 @@
 # dht22d
 daemon which reads data from dht22 sensors and logs it  
-paths touched:  
+
+##Installation
+Simply build using the included makefile  
+`make install`  
+This will compile the binary and put everything in their proper places.
+this will also register dhtd to start on boot.  
+
+####File locations
 * binary location:  
-    * `/usr/sbin/dhtDaemon`
+    * `/usr/sbin/dhtd`
 * log location:  
-    * `/var/log/dhtDaemon/dhtDaemon.log`
+    * `/var/log/dhtd.log`
 * start up script:  
-    * `/etc/init.d/dhtDaemon`
+    * `/etc/init.d/dhtd`
 * pid location:  
-    * `/var/run/dhtDaemon.pid`
+    * `/var/run/dhtd.pid`

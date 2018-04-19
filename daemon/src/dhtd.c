@@ -16,7 +16,7 @@ int main() {
         exit(EXIT_FAILURE);
     }
     if (pid > 0) {
-        FILE* pid_f = fopen("/var/run/dhtDaemon.pid", "w");
+        FILE* pid_f = fopen("/var/run/dhtd.pid", "w");
         fprintf(pid_f, "%d", (int)pid);
         fclose(pid_f);
         exit(EXIT_SUCCESS);
@@ -28,7 +28,7 @@ int main() {
     if (sid < 0) {
         exit(EXIT_FAILURE);
     }
-    if (chdir("/var/log/dhtDaemon/") < 0) {
+    if (chdir("/var/log/") < 0) {
         exit(EXIT_FAILURE);
     }
     close(STDIN_FILENO);
@@ -40,7 +40,7 @@ int main() {
     }
 
     //we should open a log here//
-    FILE* log = fopen("dhtLog.log", "a");
+    FILE* log = fopen("dhtd.log", "a");
     //int log = open("dhtLog.log", O_APPEND);
 
     //placeholder values, need to properly set this up
