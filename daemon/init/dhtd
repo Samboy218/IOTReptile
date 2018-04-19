@@ -16,6 +16,7 @@
 DESC="Daemon for monitoring dht22 sensors connected to the gpio pins"
 DAEMON=/usr/sbin/dhtd
 PID_FILE=/var/run/dhtd.pid
+PINS=`cat /etc/dhtd.cfg | sed -n "s/^[^#]*PINS= \(.*\).*$/\1/p"`
 test -x ${DAEMON} || { echo "${DAEMON} not installed";
                        if [ "${1}" = "stop" ]; then exit 0;
                        else exit 5; fi; }
@@ -23,7 +24,7 @@ test -x ${DAEMON} || { echo "${DAEMON} not installed";
 case ${1} in
     start)
         echo "starting dhtd..."
-        ${DAEMON}
+        ${DAEMON} ${PINS}
     ;;
     stop)
         echo "killing dhtd at pid `cat ${PID_FILE}`..."
@@ -34,7 +35,7 @@ case ${1} in
         echo "killing dhtd at pid `cat ${PID_FILE}`..."
         kill `cat ${PID_FILE}`
         echo "starting dhtDaemon..."
-        ${DAEMON}
+        ${DAEMON} ${PINS}
     ;;
     reload)
         echo "Option doesn't do anything sorry"
