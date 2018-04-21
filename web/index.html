@@ -5,11 +5,23 @@
     </head>
     <body>
         <h1>All Time Graphs</h1>
-        <img src="dhtd-Temperature.png" alt="All time Temperature Graph">
-        <img src="dhtd-Humidity.png" alt="All time Humidity Graph">
+        <img id="dhtd-Temperature" src="dhtd-Temperature.png" alt="All time Temperature Graph">
+        <img id="dhtd-Humidity" src="dhtd-Humidity.png" alt="All time Humidity Graph">
         <h1>Last 24 Hours</h1>
-        <img src="dht24-Temperature.png" alt="24hr Temperature Graph">
-        <img src="dht24-Humidity.png" alt="24hr Humidity Graph">
+        <img id="dht24-Temperature" src="dht24-Temperature.png" alt="24hr Temperature Graph">
+        <img id="dht24-Humidity" src="dht24-Humidity.png" alt="24hr Humidity Graph">
 
     </body>
+    <script>
+    function update() {
+        var ids = ["dhtd-Temperature", "dhtd-Humidity", "dht24-Temperature", "dht24-Humidity"];
+        var timestamp = (new Date()).getTime();
+        for (i = 0; i < ids.length; i++) {
+            var newUrl = ids[i] + '.png?_=' + timestamp;
+            document.getElementById(ids[i]).src = newUrl;
+        }
+        setTimeout(update, 60000);
+    }
+    update()
+    </script>
 </html>
