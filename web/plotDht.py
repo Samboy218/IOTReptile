@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 import matplotlib
-import matplotlib.pyplot as plt
+matplotlib.use("Agg")
+import pylab as plt
 import datetime
 import sys
 
@@ -27,4 +28,4 @@ plt.plot_date(pltTimes, temps, fmt="g-")
 plt.xlabel(field_names[0])
 plt.ylabel(field_names[field_to_plot])
 plt.xlim(pltTimes[0], pltTimes[-1])
-plt.savefig("{}-{}.png".format(filename.split('.')[0], field_names[field_to_plot]), bbox_inches="tight")
+plt.savefig("{}-{}.png".format(filename.split('/')[-1].split('.')[0], field_names[field_to_plot]), bbox_inches="tight")
