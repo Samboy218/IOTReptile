@@ -1,0 +1,1 @@
+*/10 * * * * cd /var/www/html/ && plotDht.py /var/log/dhtd.log 2 && plotDht.py /var/log/dhtd.log 3
