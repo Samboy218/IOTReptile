@@ -1,4 +1,3 @@
-<FilesMatch ".+\.py$">
-Order allow,deny
-Deny from all
+<FilesMatch ".*\.py$">
+    Require all denied
 </FilesMatch>
