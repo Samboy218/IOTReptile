@@ -1,1 +1,3 @@
-*/10 * * * * cd /var/www/html/ && plotDht.py /var/log/dhtd.log 2 && plotDht.py /var/log/dhtd.log 3
+*/10 * * * * root cd /var/www/html/ && ./plotDht.py /var/log/dhtd.log 2 && ./plotDht.py /var/log/dhtd.log 3
+*/1 * * * * root cd /var/log && tail -n 1440 dhtd.log > dht24.log && cd /var/www/html && ./plotDht.py /var/log/dht24.log 2 && ./plotDht.py /var/log/dht24.log 3
+*/1 * * * * root cd /var/www/html/ && tail -n 1 > currStat.txt
