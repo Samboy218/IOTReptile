@@ -10,8 +10,9 @@ with open("dhtd.log", "r") as f:
         temps.append(1.8 * float(line.split(", ")[3]) + 32)
 
 pltTimes = matplotlib.dates.date2num(times)
+plt.figure(figsize=(10,5), dpi=100)
 plt.plot_date(pltTimes, temps, fmt="g-")
 plt.xlabel("Time")
 plt.ylabel("Temp (F)")
 plt.xlim(pltTimes[0], pltTimes[-1])
-plt.show()
+plt.savefig("allTemp.png", bbox_inches="tight")

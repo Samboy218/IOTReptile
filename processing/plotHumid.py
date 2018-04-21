@@ -10,8 +10,9 @@ with open("dhtd.log", "r") as f:
         humid.append(float(line.split(", ")[2]))
 
 pltTimes = matplotlib.dates.date2num(times)
+plt.figure(figsize=(10,5), dpi=100)
 plt.plot_date(pltTimes, humid, fmt="b-")
 plt.xlabel("Time")
 plt.ylabel("Humidity (%)")
 plt.xlim(pltTimes[0], pltTimes[-1])
-plt.show()
+plt.savefig("allHumid.png", bbox_inches="tight")
