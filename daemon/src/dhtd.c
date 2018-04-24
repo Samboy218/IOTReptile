@@ -71,12 +71,12 @@ int main(int argc, char** argv) {
                 if (read_dht_data(gpio_pin[i], &humidity, &temperature)) {
                     fprintf(logs[i], "%d,%3.3f,%3.3f\n", 
                               curr_time, humidity, temperature);
+                    fflush(logs[i]);
                     break;
                 }
                 num_tries--;
             }
         }
-        fflush(log);
         sleep(60);
     }
     for (i=0; i < num_sense; i++) {
