@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    </head>
+    <body>
+        <p id="testGetData">Data not loaded</p>
+        <div id="chartDiv"></div>
+        <script>
+            var csv_data;
+            var dates = [],
+                temps = [],
+                humidities = [];
+            var chartData = {
+                type: 'line',
+                title: {
+                    text: 'My First Chart'
+                },
+                "csv": {
+                    'url': 'dhtd.log'
+                }
+            };
+            zingchart.render({
+                id: 'chartDiv',
+                data: chartData,
+                height: 400,
+                width: 600
+            });
+            function prepData() {
+                document.getElementById("testGetData").innerHTML = csv_data;
+            }
+            function getFile() {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status==200) {
+                        csv_data = this.responseText;
+                        prepData();
+                    }
+                    xhttp.open("GET", "dhtd.log", true);
+                    xhttp.send();
+                }
+            }
+        </script>
+    </body>
+</html>
