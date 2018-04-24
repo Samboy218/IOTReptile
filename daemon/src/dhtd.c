@@ -58,7 +58,7 @@ int main(int argc, char** argv) {
     //set up pins and log files
     for (i=0; i < num_sense; i++) {
         gpio_pin[i] = atoi(argv[i+1]);
-        snprintf(log_name, 30, "dhtd%d.log");
+        snprintf(log_name, 30, "dhtd%d.log", i);
         logs[i] = fopen(log_name, "a");
     }
 
