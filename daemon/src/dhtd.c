@@ -44,8 +44,6 @@ int main(int argc, char** argv) {
     }
 
     //we should open a log here//
-    FILE* log = fopen("dhtd.log", "a");
-    //int log = open("dhtLog.log", O_APPEND);
 
     //placeholder values, need to properly set this up
     long int curr_time;
@@ -54,9 +52,14 @@ int main(int argc, char** argv) {
     float humidity;
     float temperature;
     //because there aren't more than 40 pins
+    char log_name[30];
+    FILE* logs[40];
     int gpio_pin[40];
+    //set up pins and log files
     for (i=0; i < num_sense; i++) {
         gpio_pin[i] = atoi(argv[i+1]);
+        snprintf(log_name, 30, "dhtd%d.log");
+        logs[i] = fopen(log_name, "a");
     }
 
     while(1) {
@@ -66,8 +69,8 @@ int main(int argc, char** argv) {
             int num_tries = 20;
             while (num_tries > 0) {
                 if (read_dht_data(gpio_pin[i], &humidity, &temperature)) {
-                    fprintf(log, "%d, %d, %3.3f, %3.3f\n", 
-                              curr_time, i, humidity, temperature);
+                    fprintf(logs[i], "%d,%3.3f,%3.3f\n", 
+                              curr_time, humidity, temperature);
                     break;
                 }
                 num_tries--;
@@ -76,6 +79,8 @@ int main(int argc, char** argv) {
         fflush(log);
         sleep(60);
     }
-    fclose(log);
+    for (i=0; i < num_sense; i++) {
+        fclose(logs[i]);
+    }
     exit(EXIT_SUCCESS);
 }
