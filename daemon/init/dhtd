@@ -29,7 +29,7 @@ case ${1} in
     stop)
         echo "killing dhtd at pid `cat ${PID_FILE}`..."
         kill `cat ${PID_FILE}`
-        rm -f /var/run/dhtDaemon.pid
+        rm -f ${PID_FILE}
     ;;
     restart)
         echo "killing dhtd at pid `cat ${PID_FILE}`..."
