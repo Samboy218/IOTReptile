@@ -2,6 +2,8 @@
 i=0
 for pin in ${1}
 do
-    sudo ln -s /var/log/dhtd${i}.log /var/www/html/dhtd${i}.log
+    sudo mkdir /var/www/html/sens${i}
+    sudo ln -s /var/log/dhtd${i}.log /var/www/html/sens${i}/dhtd.log
+    sudo cp template.html /var/www/html/sens${i}/index.html
     ((i++))
 done
