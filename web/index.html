@@ -1,27 +1,84 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Environment Monitor</title>
+        <meta charset="utf-8">
+        <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+        <script src="papaparse.min.js"></script>
     </head>
-    <body>
-        <h1>All Time Graphs</h1>
-        <img id="dhtd-Temperature" src="dhtd-Temperature.png" alt="All time Temperature Graph">
-        <img id="dhtd-Humidity" src="dhtd-Humidity.png" alt="All time Humidity Graph">
-        <h1>Last 24 Hours</h1>
-        <img id="dht24-Temperature" src="dht24-Temperature.png" alt="24hr Temperature Graph">
-        <img id="dht24-Humidity" src="dht24-Humidity.png" alt="24hr Humidity Graph">
-
+    <body style="margin:0;padding:0;">
+        <div id="chartTempDiv" style="padding:0;margin:0;height:100vh;width:49vw;display:inline-block;"></div>
+        <div id="chartHumidDiv" style="padding:0;margin:0;height:100vh;width:49vw;display:inline-block;"></div>
+        <script>
+            var csv_data;
+            var dates = [],
+                temps = [],
+                humidities = [];
+            function prepData() {
+                var lines = csv_data.split('\n');
+                for (var i = 0; i < lines.length; i++) {
+                    var vals = lines[i].split(',');
+                    temps.push([parseInt(vals[0], 10) , parseFloat(vals[2])]);
+                    humidities.push([parseInt(vals[0], 10) , parseFloat(vals[1])]);
+                }
+                var chartTempData = {
+                    type: 'line',
+                    title: {
+                        text: 'Temperature'
+                    },
+                    scaleX: {
+                        transform: {
+                            type: 'date',
+                            all: '%m/%d/%y %h:%i %A'
+                        }
+                    },
+                    series: [
+                        {
+                            values: temps
+                        }
+                    ]
+                };
+                var chartHumidData = {
+                    type: 'line',
+                    title: {
+                        text: 'Humidity'
+                    },
+                    scaleX: {
+                        transform: {
+                            type: 'date',
+                            all: '%m/%d/%y %h:%i %A'
+                        }
+                    },
+                    series: [
+                        {
+                            values: humidities
+                        }
+                    ]
+                };
+                zingchart.render({
+                    id: 'chartTempDiv',
+                    data: chartTempData,
+                    height: '100%',
+                    width: '100%'
+                });
+                zingchart.render({
+                    id: 'chartHumidDiv',
+                    data: chartHumidData,
+                    height: '100%',
+                    width: '100%'
+                });
+            }
+            function getFile() {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        csv_data = this.responseText;
+                        prepData();
+                    }
+                }
+                xhttp.open("GET", "dhtd.log");
+                xhttp.send();
+            }
+            getFile();
+        </script>
     </body>
-    <script>
-    function update() {
-        var ids = ["dhtd-Temperature", "dhtd-Humidity", "dht24-Temperature", "dht24-Humidity"];
-        var timestamp = (new Date()).getTime();
-        for (i = 0; i < ids.length; i++) {
-            var newUrl = ids[i] + '.png?_=' + timestamp;
-            document.getElementById(ids[i]).src = newUrl;
-        }
-        setTimeout(update, 60000);
-    }
-    update()
-    </script>
 </html>
