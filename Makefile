@@ -9,4 +9,4 @@ daemon:
 
 .PHONY: web
 web:
-	cd web && make show
+	cd web && make install
