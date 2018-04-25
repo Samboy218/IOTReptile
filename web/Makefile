@@ -2,4 +2,4 @@
 .PHONY: install
 install:
 	sudo cp index.html /var/www/html/index.html
-	ln -s /var/log/dhtd0.log /var/www/html/dhtd.log
+	sudo ln -s /var/log/dhtd0.log /var/www/html/dhtd.log
