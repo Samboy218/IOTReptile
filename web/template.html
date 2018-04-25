@@ -4,9 +4,8 @@
         <meta charset="utf-8">
         <script src="includes/zingchart.min.js"></script>
     </head>
-    <body style="margin:0;padding:0;">
-        <div id="chartTempDiv" style="padding:0;margin:0;height:100vh;width:49vw;display:inline-block;"></div>
-        <div id="chartHumidDiv" style="padding:0;margin:0;height:100vh;width:49vw;display:inline-block;"></div>
+    <body style="padding:0;margin:0;">
+        <div id="chartDiv" style="width:100vw;height:100vh;"></div>
         <script>
             var csv_data;
             var dates = [],
@@ -19,69 +18,78 @@
                     temps.push([parseInt(vals[0], 10)*1000 , parseFloat(vals[2])]);
                     humidities.push([parseInt(vals[0], 10)*1000 , parseFloat(vals[1])]);
                 }
-                var chartTempData = {
-                    type: 'line',
-                    title: {
-                        text: 'Temperature'
-                    },
-                    "crosshair-x": {
-                        "plot-label": {
-                            text: "Temp (c): %v"
-                        }
-                    },
-                    plot: {
-                        tooltip: {
-                            visible: false
-                        }
-                    },
-                    scaleX: {
-                        transform: {
-                            type: 'date',
-                            all: '%m/%d/%y %h:%i %A'
-                        }
-                    },
-                    series: [
+                var chartConfig = {
+                    layout: "horizontal",
+                    graphset: [
                         {
-                            values: temps
-                        }
-                    ]
-                };
-                var chartHumidData = {
-                    type: 'line',
-                    title: {
-                        text: 'Humidity'
-                    },
-                    "crosshair-x": {
-                        "plot-label": {
-                            text: "Humidity: %v\%"
-                        }
-                    },
-                    plot: {
-                        tooltip: {
-                            visible: false
-                        }
-                    },
-                    scaleX: {
-                        transform: {
-                            type: 'date',
-                            all: '%m/%d/%y %h:%i %A'
-                        }
-                    },
-                    series: [
+                            type: 'line',
+                            zoom: {
+                                shared: true,
+                            },
+                            'scroll-x': {},
+                            title: {
+                                text: 'Temperature'
+                            },
+                            "crosshair-x": {
+                                "plot-label": {
+                                    text: "Temp (c): %v"
+                                }
+                            },
+                            plot: {
+                                tooltip: {
+                                    visible: false
+                                }
+                            },
+                            scaleX: {
+                                zooming: true,
+                                transform: {
+                                    type: 'date',
+                                    all: '%m/%d/%y %h:%i %A'
+                                }
+                            },
+                            series: [
+                                {
+                                    values: temps
+                                }
+                            ]
+                        },
                         {
-                            values: humidities
+                            type: 'line',
+                            zoom: {
+                                shared: true
+                            },
+                            'scroll-x': {},
+                            title: {
+                                text: 'Humidity'
+                            },
+                            "crosshair-x": {
+                                "plot-label": {
+                                    text: "Humidity: %v\%"
+                                }
+                            },
+                            plot: {
+                                tooltip: {
+                                    visible: false
+                                }
+                            },
+                            scaleX: {
+                                zooming: true,
+                                transform: {
+                                    type: 'date',
+                                    all: '%m/%d/%y %h:%i %A'
+                                }
+                            },
+                            series: [
+                                {
+                                    values: humidities
+                                }
+                            ]
                         }
                     ]
                 };
                 zingchart.render({
-                    id: 'chartTempDiv',
-                    data: chartTempData,
-                    height: '100%',
-                    width: '100%'
-                });
-                zingchart.render({
-                    id: 'chartHumidDiv',
-                    data: chartHumidData,
+                    id: 'chartDiv',
+                    data: chartConfig,
                     height: '100%',
                     width: '100%'
                 });
