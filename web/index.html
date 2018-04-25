@@ -2,8 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
-        <script src="papaparse.min.js"></script>
+        <script src="includes/zingchart.min.js"></script>
     </head>
     <body style="margin:0;padding:0;">
         <div id="chartTempDiv" style="padding:0;margin:0;height:100vh;width:49vw;display:inline-block;"></div>
@@ -17,13 +16,23 @@
                 var lines = csv_data.split('\n');
                 for (var i = 0; i < lines.length; i++) {
                     var vals = lines[i].split(',');
-                    temps.push([parseInt(vals[0], 10) , parseFloat(vals[2])]);
-                    humidities.push([parseInt(vals[0], 10) , parseFloat(vals[1])]);
+                    temps.push([parseInt(vals[0], 10)*1000 , parseFloat(vals[2])]);
+                    humidities.push([parseInt(vals[0], 10)*1000 , parseFloat(vals[1])]);
                 }
                 var chartTempData = {
                     type: 'line',
                     title: {
                         text: 'Temperature'
+                    },
+                    "crosshair-x": {
+                        "plot-label": {
+                            text: "Temp (c): %v"
+                        }
+                    },
+                    plot: {
+                        tooltip: {
+                            visible: false
+                        }
                     },
                     scaleX: {
                         transform: {
@@ -41,6 +50,16 @@
                     type: 'line',
                     title: {
                         text: 'Humidity'
+                    },
+                    "crosshair-x": {
+                        "plot-label": {
+                            text: "Humidity: %v\%"
+                        }
+                    },
+                    plot: {
+                        tooltip: {
+                            visible: false
+                        }
                     },
                     scaleX: {
                         transform: {
