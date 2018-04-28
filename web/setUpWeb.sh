@@ -8,4 +8,5 @@ do
     ((i++))
 done
 #now make the index page
+((i--))
 ./makeInd.sh ${i} > index.html
