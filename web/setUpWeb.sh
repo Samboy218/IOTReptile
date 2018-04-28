@@ -8,3 +8,4 @@ do
     ((i++))
 done
 #now make the index page
+./makeInd ${i} > index.html
