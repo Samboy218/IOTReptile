@@ -10,3 +10,12 @@ daemon:
 .PHONY: web
 web:
 	cd ./web && make install
+
+.PHONY: uninstall
+uninstall:
+	sudo rm -f /etc/init.d/dhtd
+	sudo rm -f /etc/dhtd.cfg
+	sudo rm -f /var/run/dhtd.pid
+	sudo rm -f /usr/sbin/dhtd
+	sudo rm -f /var/log/dhtd*
+	sudo rm -rf /var/www/html/*

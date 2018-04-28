@@ -7,3 +7,4 @@ do
     sudo cp template.html /var/www/html/sens${i}/index.html
     ((i++))
 done
+#now make the index page
