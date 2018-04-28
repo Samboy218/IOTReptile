@@ -1,10 +1,13 @@
 #! /bin/bash
 
 #this pretty much just echoes the proper HTML
-echo "<!DOCTYPE html>\n<html>\n<head><title>Temperature Sensor Console</title>"
-echo "</head>\n<body>"
+echo "<!DOCTYPE html>"
+echo "<html>"
+echo "<head><title>Temperature Sensor Console</title></head>"
+echo "<body>"
 for i in `seq 0 $1`;
 do
-    echo "<a href=/sens${i}/>Sensor ${i}</a>"
+    echo "<a href=/sens${i}/>Sensor ${i}</a><br />"
 done
-echo "</body>\n</html>\n"
+echo "</body>"
+echo "</html>"
