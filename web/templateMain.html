@@ -92,7 +92,6 @@
                     height: '100%',
                     width: '100%'
                 });
-                num_fetched = 0;
             }
             var num_sense = NUM_PINS;
             var num_fetched = 0;
@@ -111,11 +110,13 @@
                 xhttp.send();
             }
             function doCharts() {
+                num_fetched = 0;
                 for (i=0; i < num_sense; i++) {
                     getFile("/sens" + i + "/dhtd.log");
                 }
                 setTimeout(doCharts, 60000);
             }
+            doCharts();
         </script>
     </body>
 </html>
