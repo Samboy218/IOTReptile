@@ -111,6 +111,8 @@
             }
             function doCharts() {
                 num_fetched = 0;
+                seriesTemp = [];
+                seriesHumid = [];
                 for (i=0; i < num_sense; i++) {
                     getFile("/sens" + i + "/dhtd.log");
                 }
