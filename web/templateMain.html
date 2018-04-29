@@ -19,7 +19,7 @@
                     tempHumid.push([parseInt(vals[0], 10)*1000 , parseFloat(vals[1])]);
                 }
                 seriesTemp.push({"values":tempTemp});
-                seriesHumid.push("values":tempHumid});
+                seriesHumid.push({"values":tempHumid});
             };
             function renderChart() { 
                 var chartConfig = {
