@@ -1,5 +1,8 @@
 
-export PINS= "7 4 9"
+export PINS= "0 1 2 3 4"
+
+.PHONY: all
+all: uninstall daemon web
 
 .PHONY: daemon
 daemon:
