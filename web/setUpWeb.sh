@@ -9,4 +9,5 @@ do
 done
 #now make the index page
 ((i--))
-./makeInd.sh ${i} > index.html
+cat templateMain.html | sed "s/NUM_PINS/$i/" > index.html
+#./makeInd.sh ${i} > index.html
