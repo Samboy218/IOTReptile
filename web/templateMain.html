@@ -18,7 +18,7 @@
                     tempTemp.push([parseInt(vals[0], 10)*1000 , parseFloat(vals[2])]);
                     tempHumid.push([parseInt(vals[0], 10)*1000 , parseFloat(vals[1])]);
                 }
-                var ind = seriesTemp.length - 1;
+                var ind = seriesTemp.length;
                 seriesTemp.push({"values":tempTemp, "text":"sens"+ind, "url":"/sens"+ind+"/index.html"});
                 seriesHumid.push({"values":tempHumid, "text":"sens"+ind, "url":"/sens"+ind+"/index.html"});
             };
