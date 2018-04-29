@@ -110,8 +110,11 @@
                 xhttp.open("GET", filepath);
                 xhttp.send();
             }
-            for (i=0; i < num_sense; i++) {
-                getFile("/sens" + i + "/dhtd.log");
+            function doCharts() {
+                for (i=0; i < num_sense; i++) {
+                    getFile("/sens" + i + "/dhtd.log");
+                }
+                setTimeout(doCharts, 60000);
             }
         </script>
     </body>
