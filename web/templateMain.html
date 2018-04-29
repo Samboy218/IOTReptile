@@ -5,7 +5,6 @@
         <script src="/includes/zingchart.min.js"></script>
     </head>
     <body style="padding:0;margin:0;">
-        <a href="/sens0/index.html">goto sens0</a>
         <div id="chartDiv" style="width:100vw;height:100vh;"></div>
         <script>
             var seriesTemp = [];
@@ -19,8 +18,9 @@
                     tempTemp.push([parseInt(vals[0], 10)*1000 , parseFloat(vals[2])]);
                     tempHumid.push([parseInt(vals[0], 10)*1000 , parseFloat(vals[1])]);
                 }
-                seriesTemp.push({"values":tempTemp});
-                seriesHumid.push({"values":tempHumid});
+                var ind = seriesTemp.length - 1;
+                seriesTemp.push({"values":tempTemp, "text":"sens"+ind, "url":"/sens"+ind+"/index.html"});
+                seriesHumid.push({"values":tempHumid, "text":"sens"+ind, "url":"/sens"+ind+"/index.html"});
             };
             function renderChart() { 
                 var chartConfig = {
