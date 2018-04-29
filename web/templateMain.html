@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="/includes/zingchart.min.js"></script>
+    </head>
+    <body style="padding:0;margin:0;">
+        <div id="chartDiv" style="width:100vw;height:100vh;"></div>
+        <script>
+            var seriesTemp = [];
+            var seriesHumid = [];
+            function prepData(csv_data) {
+                var tempTemp = [];
+                var tempHumid = [];
+                var lines = csv_data.split('\n');
+                for (var i = 0; i < lines.length; i++) {
+                    var vals = lines[i].split(',');
+                    tempTemp.push([parseInt(vals[0], 10)*1000 , parseFloat(vals[2])]);
+                    tempHumid.push([parseInt(vals[0], 10)*1000 , parseFloat(vals[1])]);
+                }
+                seriesTemp.push({"values":tempTemp});
+                seriesHumid.push("values":tempHumid});
+            };
+            function renderChart() { 
+                var chartConfig = {
+                    layout: "horizontal",
+                    graphset: [
+                        {
+                            type: 'line',
+                            zoom: {
+                                shared: true,
+                            },
+                            'scroll-x': {},
+                            title: {
+                                text: 'Temperature'
+                            },
+                            "crosshair-x": {
+                                "plot-label": {
+                                    text: "Temp (c): %v"
+                                }
+                            },
+                            plot: {
+                                tooltip: {
+                                    visible: false
+                                }
+                            },
+                            scaleX: {
+                                zooming: true,
+                                transform: {
+                                    type: 'date',
+                                    all: '%m/%d/%y %h:%i %A'
+                                }
+                            },
+                            series: seriesTemp
+                        },
+                        {
+                            type: 'line',
+                            zoom: {
+                                shared: true
+                            },
+                            'scroll-x': {},
+                            title: {
+                                text: 'Humidity'
+                            },
+                            "crosshair-x": {
+                                "plot-label": {
+                                    text: "Humidity: %v\%"
+                                }
+                            },
+                            plot: {
+                                tooltip: {
+                                    visible: false
+                                }
+                            },
+                            scaleX: {
+                                zooming: true,
+                                transform: {
+                                    type: 'date',
+                                    all: '%m/%d/%y %h:%i %A'
+                                }
+                            },
+                            series: seriesHumid
+                        }
+                    ]
+                };
+                zingchart.render({
+                    id: 'chartDiv',
+                    data: chartConfig,
+                    height: '100%',
+                    width: '100%'
+                });
+            }
+            function getFile(filepath) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        prepData(this.responseText);
+                    }
+                }
+                xhttp.open("GET", filepath);
+                xhttp.send();
+            }
+            var num_sensors = 5;
+            for (i=0; i < num_sensors; i++) {
+                getFile("/sens" + i + "/dhtd.log");
+            }
+            renderChart();
+        </script>
+    </body>
+</html>
